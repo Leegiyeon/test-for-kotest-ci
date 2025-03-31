@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: core
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTOR_PASSWORD}
+
