@@ -26,23 +26,14 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-    #   - name: Create application.yml
-    #     run: |
-    #       mkdir -p src/main/resources
-    #       echo "${{ secrets.DB_YML }}" | base64 --decode > src/main/resources/application.yml
-
       - name: Build and Test with Gradle
         run: ./gradlew build
-        # env:
-        #   DB_URL: ${{ secrets.DB_URL }}
-        #   DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
-        #   DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-
-    #   - name: Upload build artifacts
-    #     uses: actions/upload-artifact@v3
-    #     with:
-    #       name: Package
-    #       path: build/libs
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          # (필요시 DB 관련 환경변수 추가)
+          # DB_URL: ${{ secrets.DB_URL }}
+          # DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
+          # DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
   dependency-submission:
     needs: build-and-test
@@ -61,4 +52,4 @@ jobs:
           cache: 'gradle'
 
       - name: Generate and submit dependency graph
-        uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+        uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5
