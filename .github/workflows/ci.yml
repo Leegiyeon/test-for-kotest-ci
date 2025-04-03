@@ -22,11 +22,13 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: '8.7'
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
+      # Gradle 버전 확인 단계 (빌드 시작 전 버전 출력)
+      - name: Display Gradle Version
+        run: ./gradlew --version
 
       # === 환경 파일 생성 단계 (GitHub Secrets에서 복원) ===
       # admin-api의 application-private.yml 파일 생성
